@@ -79,7 +79,7 @@ Configure these headers for production deployments:
 - Using CSP nonces or hashes for necessary inline code
 
 ```
-Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' https: data:; connect-src 'self';
+Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https://placehold.co; connect-src 'self';
 X-Frame-Options: DENY
 X-Content-Type-Options: nosniff
 Referrer-Policy: strict-origin-when-cross-origin
@@ -153,7 +153,7 @@ Consider setting up pre-commit hooks to prevent committing secrets:
 # .git/hooks/pre-commit
 
 # Check for .env files (all variations)
-if git diff --cached --name-only | grep -E "^\.env|/\.env"; then
+if git diff --cached --name-only | grep -qE "^\.env|/\.env"; then
     echo "Error: Attempting to commit .env file!"
     exit 1
 fi
