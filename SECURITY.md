@@ -73,13 +73,23 @@ KEY=value
 
 Configure these headers for production deployments:
 
+**Note:** The following CSP includes 'unsafe-inline' for compatibility with the current inline styles and scripts. For enhanced security, consider:
+- Moving inline styles to external CSS files
+- Moving inline scripts to external JS files
+- Using CSP nonces or hashes for necessary inline code
+
 ```
-Content-Security-Policy: default-src 'self' https://cdn.tailwindcss.com https://fonts.googleapis.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' https: data:; connect-src 'self';
 X-Frame-Options: DENY
 X-Content-Type-Options: nosniff
 Referrer-Policy: strict-origin-when-cross-origin
 Permissions-Policy: geolocation=(), microphone=(), camera=()
 ```
+
+**For stricter security (requires refactoring):**
+- Remove all inline styles and use external CSS
+- Remove all inline scripts and use external JS with nonce/hash
+- Update CSP to remove 'unsafe-inline'
 
 ## 🚨 Reporting a Vulnerability
 
@@ -142,8 +152,8 @@ Consider setting up pre-commit hooks to prevent committing secrets:
 #!/bin/bash
 # .git/hooks/pre-commit
 
-# Check for .env files
-if git diff --cached --name-only | grep -q "\.env$"; then
+# Check for .env files (all variations)
+if git diff --cached --name-only | grep -E "^\.env|/\.env"; then
     echo "Error: Attempting to commit .env file!"
     exit 1
 fi

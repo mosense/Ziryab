@@ -23,6 +23,8 @@ Then open http://localhost:8080 in your browser.
 
 **IMPORTANT:** Never commit sensitive information to version control!
 
+**Note:** The current static site uses CDN resources and doesn't require environment variables. However, if you plan to add backend functionality, contact forms, or API integrations in the future, follow these guidelines:
+
 - ✅ Use environment variables for API keys, secrets, and credentials
 - ✅ Copy `.env.example` to `.env` and fill in your values
 - ✅ Keep `.env` files in `.gitignore` (already configured)

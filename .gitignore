@@ -58,10 +58,10 @@ bower_components/
 vendor/
 jspm_packages/
 
-# Package Manager Files
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
+# Package Manager Files (optional - uncomment if needed)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
 
 # Database
 *.sqlite
